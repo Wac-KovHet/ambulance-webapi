@@ -11,13 +11,12 @@
 package ambulance_wl
 
 type AmbulanceRequest struct {
-
 	// Name of ambulance
-	Name string `json:"name"`
+	Name string `json:"name" validate:"required,min=2,max=100"`
 
 	// Location of ambulance
-	Location string `json:"location"`
+	Location string `json:"location" validate:"required,min=2,max=100"`
 
 	// Contact for ambulance
-	Contact string `json:"contact"`
+	Contact string `json:"contact" validate:"required,min=2,max=100"`
 }

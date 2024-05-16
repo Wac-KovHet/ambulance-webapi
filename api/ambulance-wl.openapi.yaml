@@ -384,6 +384,11 @@ components:
           type: string
           example: Doctor
           description: Position of employee
+        wage:
+          type: integer
+          format: int32
+          example: 100
+          description: Wage
       example:
         $ref: '#/components/examples/EmployeeRequestExample'
     EmployeeResponse:
@@ -411,6 +416,11 @@ components:
           type: string
           example: Doctor
           description: Position of employee
+        wage:
+          type: integer
+          format: int32
+          example: 100
+          description: Wage
       example:
         $ref: '#/components/examples/EmployeeResponseExample'
   examples:
