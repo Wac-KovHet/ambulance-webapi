@@ -352,11 +352,13 @@ components:
           example: cardiology@gmail.com
           description: Contact for ambulance
         nurseCount:
-          type: string
+          type: integer
+          format: int32
           example: 10
           description: Number of nurses
         doctorCount:
-          type: string
+          type: integer
+          format: int32
           example: 5
           description: Number of doctors
       example:
