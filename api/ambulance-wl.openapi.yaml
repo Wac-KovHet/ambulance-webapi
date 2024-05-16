@@ -328,7 +328,7 @@ components:
           description: Number of doctors
       example:
         $ref: '#/components/examples/AmbulanceResponseEntryExample'
-    EmployeeResponseEntry:
+    EmployeeEntry:
       type: object
       required: [id, name, surname, dateOfBirth, 'position', 'wage']
       properties:
