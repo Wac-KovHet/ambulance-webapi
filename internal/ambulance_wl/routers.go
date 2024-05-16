@@ -23,7 +23,7 @@ func AddRoutes(engine *gin.Engine) {
   }
   
   {
-    api := newEmloyeeListAPI()
+    api := newEmployeeListAPI()
     api.addRoutes(group)
   }
   

@@ -6,23 +6,27 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// DeleteEmployeeEntry - Deletes specific entry
-func (this *implEmloyeeListAPI) DeleteEmployeeEntry(ctx *gin.Context) {
+// CreateEmployee - Saves new employee
+func (this *implEmployeeListAPI) CreateEmployee(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }
 
-// GetEmployeeEntry - Provides details about the employee
-func (this *implEmloyeeListAPI) GetEmployeeEntry(ctx *gin.Context) {
+// DeleteEmployee - Deletes specific employee
+func (this *implEmployeeListAPI) DeleteEmployee(ctx *gin.Context) {
+ 	ctx.AbortWithStatus(http.StatusNotImplemented)
+}
+
+// GetEmployee - Provides details about the employee
+func (this *implEmployeeListAPI) GetEmployee(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }
 
 // GetEmployeeList - Provides details the ambulance employee list
-func (this *implEmloyeeListAPI) GetEmployeeList(ctx *gin.Context) {
+func (this *implEmployeeListAPI) GetEmployeeList(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }
 
-// UpdateEmployeeEntry - Updates specific entry
-func (this *implEmloyeeListAPI) UpdateEmployeeEntry(ctx *gin.Context) {
+// UpdateEmployee - Updates specific employee
+func (this *implEmployeeListAPI) UpdateEmployee(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }
-

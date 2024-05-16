@@ -6,18 +6,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// CreateAmbulanceEntry - Saves new entry into ambulance list
-func (this *implAmbulanceListAPI) CreateAmbulanceEntry(ctx *gin.Context) {
+// CreateAmbulance - Saves new ambulance
+func (this *implAmbulanceListAPI) CreateAmbulance(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }
 
-// DeleteAmbulanceEntry - Deletes specific entry
-func (this *implAmbulanceListAPI) DeleteAmbulanceEntry(ctx *gin.Context) {
+// DeleteAmbulance - Deletes specific ambulance
+func (this *implAmbulanceListAPI) DeleteAmbulance(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }
 
-// GetAmbulanceEntry - Provides details about the ambulance
-func (this *implAmbulanceListAPI) GetAmbulanceEntry(ctx *gin.Context) {
+// GetAmbulance - Provides details about the ambulance
+func (this *implAmbulanceListAPI) GetAmbulance(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }
 
@@ -26,7 +26,7 @@ func (this *implAmbulanceListAPI) GetAmbulanceList(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }
 
-// UpdateAmbulanceEntry - Updates specific entry
-func (this *implAmbulanceListAPI) UpdateAmbulanceEntry(ctx *gin.Context) {
+// UpdateAmbulance - Updates specific ambulance
+func (this *implAmbulanceListAPI) UpdateAmbulance(ctx *gin.Context) {
  	ctx.AbortWithStatus(http.StatusNotImplemented)
 }

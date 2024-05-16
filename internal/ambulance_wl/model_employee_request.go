@@ -10,10 +10,7 @@
 
 package ambulance_wl
 
-type EmployeeEntry struct {
-
-	// Unique id of the employee
-	Id string `json:"id"`
+type EmployeeRequest struct {
 
 	// Name of employee
 	Name string `json:"name"`

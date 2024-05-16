@@ -10,7 +10,7 @@
 
 package ambulance_wl
 
-type AmbulanceResponseEntry struct {
+type AmbulanceResponse struct {
 
 	// Unique id of the ambulance
 	Id string `json:"id"`
@@ -25,8 +25,8 @@ type AmbulanceResponseEntry struct {
 	Contact string `json:"contact"`
 
 	// Number of nurses
-	NurseCount string `json:"nurseCount"`
+	NurseCount int32 `json:"nurseCount"`
 
 	// Number of doctors
-	DoctorCount string `json:"doctorCount"`
+	DoctorCount int32 `json:"doctorCount"`
 }
