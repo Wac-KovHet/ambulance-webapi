@@ -14,8 +14,8 @@ info:
 tags:
   - name: ambulanceList
     description: Ambulance API
-  - name: ambulancePositions
-    description: Employee positions in the ambulance
+  - name: employeeList
+    description: Employee API
 paths:
   '/ambulances':
     get:
@@ -32,36 +32,36 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AmbulanceResponseEntry'
+                  $ref: '#/components/schemas/AmbulanceResponse'
               examples:
                 response:
-                  $ref: '#/components/examples/AmbulanceResponseEntriesExample'
+                  $ref: '#/components/examples/AmbulanceResponseListExample'
     post:
       tags:
         - ambulanceList
-      summary: Saves new entry into ambulance list
-      operationId: createAmbulanceEntry
-      description: Use this method to store new entry into the ambulance list.
+      summary: Saves new ambulance
+      operationId: createAmbulance
+      description: Use this method to store new ambulance.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AmbulanceRequestEntry'
+              $ref: '#/components/schemas/AmbulanceRequest'
             examples:
               request-sample:
-                $ref: '#/components/examples/AmbulanceRequestEntryExample'
-        description: Ambulance entry to store
+                $ref: '#/components/examples/AmbulanceRequestExample'
+        description: Ambulance request to store
         required: true
       responses:
         '200':
-          description: Value of the ambulance entry
+          description: Value of the ambulance
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AmbulanceResponseEntry'
+                $ref: '#/components/schemas/AmbulanceResponse'
               examples:
                 updated-response:
-                  $ref: '#/components/examples/AmbulanceResponseEntryExample'
+                  $ref: '#/components/examples/AmbulanceResponseExample'
         '400':
           description: Missing mandatory properties of input object.
   '/ambulances/{ambulanceId}':
@@ -69,7 +69,7 @@ paths:
       tags:
         - ambulanceList
       summary: Provides details about the ambulance
-      operationId: getAmbulanceEntry
+      operationId: getAmbulance
       description: By using ambulanceId you can details of particular ambulance.
       parameters:
         - in: path
@@ -80,22 +80,22 @@ paths:
             type: string
       responses:
         '200':
-          description: value of the ambulance entry
+          description: value of the ambulance
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AmbulanceResponseEntry'
+                $ref: '#/components/schemas/AmbulanceResponse'
               examples:
                 response:
-                  $ref: '#/components/examples/AmbulanceResponseEntryExample'
+                  $ref: '#/components/examples/AmbulanceResponseExample'
         '404':
           description: Ambulance with such ID does not exists
     put:
       tags:
         - ambulanceList
-      summary: Updates specific entry
-      operationId: updateAmbulanceEntry
-      description: Use this method to update content of the ambulance entry.
+      summary: Updates specific ambulance
+      operationId: updateAmbulance
+      description: Use this method to update content of the ambulance.
       parameters:
         - in: path
           name: ambulanceId
@@ -107,30 +107,30 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AmbulanceRequestEntry'
+              $ref: '#/components/schemas/AmbulanceRequest'
             examples:
               request:
-                $ref: '#/components/examples/AmbulanceRequestEntryExample'
-        description: Ambulance entry to update
+                $ref: '#/components/examples/AmbulanceRequestExample'
+        description: Ambulance request to update
         required: true
       responses:
         '200':
-          description: Value of the ambulance entry
+          description: Value of the ambulance
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AmbulanceResponseEntry'
+                $ref: '#/components/schemas/AmbulanceResponse'
               examples:
                 response:
-                  $ref: '#/components/examples/AmbulanceResponseEntryExample'
+                  $ref: '#/components/examples/AmbulanceResponseExample'
         '404':
           description: Ambulance with such ID does not exists
     delete:
       tags:
         - ambulanceList
-      summary: Deletes specific entry
-      operationId: deleteAmbulanceEntry
-      description: Use this method to delete the specific entry from the ambulance list.
+      summary: Deletes specific ambulance
+      operationId: deleteAmbulance
+      description: Use this method to delete the specific ambulance.
       parameters:
         - in: path
           name: ambulanceId
@@ -165,10 +165,47 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/EmployeeEntry'
+                  $ref: '#/components/schemas/EmployeeResponse'
               examples:
                 response:
-                  $ref: '#/components/examples/EmployeeEntriesExample'
+                  $ref: '#/components/examples/EmployeeResponseListExample'
+        '404':
+          description: Ambulance with such ID does not exists
+    post:
+      tags:
+        - employeeList
+      summary: Saves new employee
+      operationId: createEmployee
+      description: Use this method to store new employee.
+      parameters:
+        - in: path
+          name: ambulanceId
+          description: pass the id of the particular ambulance
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+            examples:
+              request-sample:
+                $ref: '#/components/examples/EmployeeRequestExample'
+        description: Employee request to store
+        required: true
+      responses:
+        '200':
+          description: Value of the employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+              examples:
+                updated-response:
+                  $ref: '#/components/examples/EmployeeResponseExample'
+        '400':
+          description: Missing mandatory properties of input object.
         '404':
           description: Ambulance with such ID does not exists
   '/ambulances/{ambulanceId}/employees/{employeeId}':
@@ -176,7 +213,7 @@ paths:
       tags:
         - emloyeeList
       summary: Provides details about the employee
-      operationId: getEmployeeEntry
+      operationId: getEmployee
       description: By using ambulanceId and employeeId you can details of particular employee.
       parameters:
         - in: path
@@ -193,14 +230,14 @@ paths:
             type: string
       responses:
         '200':
-          description: value of the employee entry
+          description: value of the employee
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmployeeEntry'
+                $ref: '#/components/schemas/EmployeeResponse'
               examples:
                 response:
-                  $ref: '#/components/examples/EmployeeEntryExample'
+                  $ref: '#/components/examples/EmployeeResponseExample'
         '403':
           description: Value of the ambulanceId and employeeId is mismatching.
         '404':
@@ -208,9 +245,9 @@ paths:
     put:
       tags:
         - emloyeeList
-      summary: Updates specific entry
-      operationId: updateEmployeeEntry
-      description: Use this method to update content of the employee entry.
+      summary: Updates specific employee
+      operationId: updateEmployee
+      description: Use this method to update employee.
       parameters:
         - in: path
           name: ambulanceId
@@ -228,22 +265,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EmployeeEntry'
+              $ref: '#/components/schemas/EmployeeRequest'
             examples:
               request:
-                $ref: '#/components/examples/EmployeeEntryExample'
-        description: Employee entry to update
+                $ref: '#/components/examples/EmployeeRequestExample'
+        description: Employee request to update
         required: true
       responses:
         '200':
-          description: Value of the ambulance entry
+          description: Value of the employee
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmployeeEntry'
+                $ref: '#/components/schemas/EmployeeResponse'
               examples:
                 response:
-                  $ref: '#/components/examples/EmployeeEntryExample'
+                  $ref: '#/components/examples/EmployeeResponseExample'
         '403':
           description: Value of the ambulanceId and employeeId is mismatching.
         '404':
@@ -251,9 +288,9 @@ paths:
     delete:
       tags:
         - emloyeeList
-      summary: Deletes specific entry
-      operationId: deleteEmployeeEntry
-      description: Use this method to delete the specific entry from the employee list.
+      summary: Deletes specific employee
+      operationId: deleteEmployee
+      description: Use this method to delete the specific employee.
       parameters:
         - in: path
           name: ambulanceId
@@ -276,14 +313,10 @@ paths:
           description: Ambulance or Employee with such ID does not exists
 components:
   schemas:
-    AmbulanceRequestEntry:
+    AmbulanceRequest:
       type: object
-      required: [id, name, location, contact]
+      required: [name, location, contact]
       properties:
-        id:
-          type: string
-          example: x321ab3
-          description: Unique id of the ambulance
         name:
           type: string
           example: Cardiology Ambulance
@@ -297,10 +330,10 @@ components:
           example: cardiology@gmail.com
           description: Contact for ambulance
       example:
-        $ref: '#/components/examples/AmbulanceRequestEntryExample'
-    AmbulanceResponseEntry:
+        $ref: '#/components/examples/AmbulanceRequestExample'
+    AmbulanceResponse:
       type: object
-      required: [id, name, location, contact, 'nurseCount', 'doctorCount']
+      required: [id, name, location, contact, nurseCount, doctorCount]
       properties:
         id:
           type: string
@@ -327,10 +360,33 @@ components:
           example: 5
           description: Number of doctors
       example:
-        $ref: '#/components/examples/AmbulanceResponseEntryExample'
-    EmployeeEntry:
+        $ref: '#/components/examples/AmbulanceResponseExample'
+    EmployeeRequest:
       type: object
-      required: [id, name, surname, dateOfBirth, 'position', 'wage']
+      required: [name, surname, dateOfBirth, position, wage]
+      properties:
+        name:
+          type: string
+          example: Bill
+          description: Name of employee
+        surname:
+          type: string
+          example: Gates
+          description: Surname of employee
+        dateOfBirth:
+          type: string
+          format: date
+          example: '2000-01-01'
+          description: Date of birth of employee
+        position:
+          type: string
+          example: Doctor
+          description: Position of employee
+      example:
+        $ref: '#/components/examples/EmployeeRequestExample'
+    EmployeeResponse:
+      type: object
+      required: [id, name, surname, dateOfBirth, position, wage]
       properties:
         id:
           type: string
@@ -354,21 +410,18 @@ components:
           example: Doctor
           description: Position of employee
       example:
-        $ref: '#/components/examples/EmployeeEntryExample'
+        $ref: '#/components/examples/EmployeeResponseExample'
   examples:
-    AmbulanceRequestEntryExample:
+    AmbulanceRequestExample:
       summary: Cardiology Ambulance
-      description: |
-        Entry represents an ambulance request entry
+      description: Ambulance request object
       value:
-        id: x321ab3
         name: Cardiology Ambulance
         location: A 1.34
         contact: cardiology@gmail.com
-    AmbulanceResponseEntryExample:
+    AmbulanceResponseExample:
       summary: Cardiology Ambulance
-      description: |
-        Entry represents an ambulance response entry
+      description: Ambulance response object
       value:
         id: x321ab3
         name: Cardiology Ambulance
@@ -376,7 +429,7 @@ components:
         contact: cardiology@gmail.com
         nurseCount: 10
         doctorCount: 5
-    AmbulanceResponseEntriesExample:
+    AmbulanceResponseListExample:
       summary: List of ambulances
       description: Example ambulance list containing 2 ambulances
       value:
@@ -392,9 +445,18 @@ components:
           contact: chirurgy@gmail.com
           nurseCount: 5
           doctorCount: 2
-    EmployeeEntryExample:
+    EmployeeRequestExample:
       summary: Bill Gates employee
-      description: Entry represents an employee entry
+      description: Employee request object
+      value:
+        name: Bill
+        surname: Gates
+        dateOfBirth: '2000-01-01'
+        position: Doctor
+        wage: 100
+    EmployeeResponseExample:
+      summary: Bill Gates employee
+      description: Employee response object
       value:
         id: x321ab3
         name: Bill
@@ -402,7 +464,7 @@ components:
         dateOfBirth: '2000-01-01'
         position: Doctor
         wage: 100
-    EmployeeEntriesExample:
+    EmployeeResponseListExample:
       summary: List of employees
       description: Example employee list containing 2 employees
       value:
