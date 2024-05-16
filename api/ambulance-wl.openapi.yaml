@@ -1,0 +1,421 @@
+openapi: 3.0.0
+servers:
+  - description: Cluster Endpoint
+    url: /api
+info:
+  description: Ambulance management for Web-In-Cloud system
+  version: '1.0.0'
+  title: Ambulance Api
+  contact:
+    email: xkovhet@stuba.sk
+  license:
+    name: CC BY 4.0
+    url: 'https://creativecommons.org/licenses/by/4.0/'
+tags:
+  - name: ambulanceList
+    description: Ambulance API
+  - name: ambulancePositions
+    description: Employee positions in the ambulance
+paths:
+  '/ambulances':
+    get:
+      tags:
+        - ambulanceList
+      summary: Provides the ambulance list
+      operationId: getAmbulanceList
+      description: Get list of ambulances
+      responses:
+        '200':
+          description: List of ambulances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AmbulanceResponseEntry'
+              examples:
+                response:
+                  $ref: '#/components/examples/AmbulanceResponseEntriesExample'
+    post:
+      tags:
+        - ambulanceList
+      summary: Saves new entry into ambulance list
+      operationId: createAmbulanceEntry
+      description: Use this method to store new entry into the ambulance list.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmbulanceRequestEntry'
+            examples:
+              request-sample:
+                $ref: '#/components/examples/AmbulanceRequestEntryExample'
+        description: Ambulance entry to store
+        required: true
+      responses:
+        '200':
+          description: Value of the ambulance entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AmbulanceResponseEntry'
+              examples:
+                updated-response:
+                  $ref: '#/components/examples/AmbulanceResponseEntryExample'
+        '400':
+          description: Missing mandatory properties of input object.
+  '/ambulances/{ambulanceId}':
+    get:
+      tags:
+        - ambulanceList
+      summary: Provides details about the ambulance
+      operationId: getAmbulanceEntry
+      description: By using ambulanceId you can details of particular ambulance.
+      parameters:
+        - in: path
+          name: ambulanceId
+          description: pass the id of the particular ambulance
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: value of the ambulance entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AmbulanceResponseEntry'
+              examples:
+                response:
+                  $ref: '#/components/examples/AmbulanceResponseEntryExample'
+        '404':
+          description: Ambulance with such ID does not exists
+    put:
+      tags:
+        - ambulanceList
+      summary: Updates specific entry
+      operationId: updateAmbulanceEntry
+      description: Use this method to update content of the ambulance entry.
+      parameters:
+        - in: path
+          name: ambulanceId
+          description: pass the id of the particular ambulance
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmbulanceRequestEntry'
+            examples:
+              request:
+                $ref: '#/components/examples/AmbulanceRequestEntryExample'
+        description: Ambulance entry to update
+        required: true
+      responses:
+        '200':
+          description: Value of the ambulance entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AmbulanceResponseEntry'
+              examples:
+                response:
+                  $ref: '#/components/examples/AmbulanceResponseEntryExample'
+        '404':
+          description: Ambulance with such ID does not exists
+    delete:
+      tags:
+        - ambulanceList
+      summary: Deletes specific entry
+      operationId: deleteAmbulanceEntry
+      description: Use this method to delete the specific entry from the ambulance list.
+      parameters:
+        - in: path
+          name: ambulanceId
+          description: pass the id of the particular ambulance
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Item deleted
+        '404':
+          description: Ambulance with such ID does not exists
+  '/ambulances/{ambulanceId}/employees':
+    get:
+      tags:
+        - emloyeeList
+      summary: Provides details the ambulance employee list
+      operationId: getEmployeeList
+      description: By using ambulanceId you can get employee list.
+      parameters:
+        - in: path
+          name: ambulanceId
+          description: pass the id of the particular ambulance
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeEntry'
+              examples:
+                response:
+                  $ref: '#/components/examples/EmployeeEntriesExample'
+        '404':
+          description: Ambulance with such ID does not exists
+  '/ambulances/{ambulanceId}/employees/{employeeId}':
+    get:
+      tags:
+        - emloyeeList
+      summary: Provides details about the employee
+      operationId: getEmployeeEntry
+      description: By using ambulanceId and employeeId you can details of particular employee.
+      parameters:
+        - in: path
+          name: ambulanceId
+          description: pass the id of the particular ambulance
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: employeeId
+          description: pass the id of the particular employee
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: value of the employee entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeEntry'
+              examples:
+                response:
+                  $ref: '#/components/examples/EmployeeEntryExample'
+        '403':
+          description: Value of the ambulanceId and employeeId is mismatching.
+        '404':
+          description: Ambulance or Employee with such ID does not exists
+    put:
+      tags:
+        - emloyeeList
+      summary: Updates specific entry
+      operationId: updateEmployeeEntry
+      description: Use this method to update content of the employee entry.
+      parameters:
+        - in: path
+          name: ambulanceId
+          description: pass the id of the particular ambulance
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: employeeId
+          description: pass the id of the particular employee
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeEntry'
+            examples:
+              request:
+                $ref: '#/components/examples/EmployeeEntryExample'
+        description: Employee entry to update
+        required: true
+      responses:
+        '200':
+          description: Value of the ambulance entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeEntry'
+              examples:
+                response:
+                  $ref: '#/components/examples/EmployeeEntryExample'
+        '403':
+          description: Value of the ambulanceId and employeeId is mismatching.
+        '404':
+          description: Ambulance or Employee with such ID does not exists
+    delete:
+      tags:
+        - emloyeeList
+      summary: Deletes specific entry
+      operationId: deleteEmployeeEntry
+      description: Use this method to delete the specific entry from the employee list.
+      parameters:
+        - in: path
+          name: ambulanceId
+          description: pass the id of the particular ambulance
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: employeeId
+          description: pass the id of the particular employee
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Item deleted
+        '403':
+          description: Value of the ambulanceId and employeeId is mismatching.
+        '404':
+          description: Ambulance or Employee with such ID does not exists
+components:
+  schemas:
+    AmbulanceRequestEntry:
+      type: object
+      required: [id, name, location, contact]
+      properties:
+        id:
+          type: string
+          example: x321ab3
+          description: Unique id of the ambulance
+        name:
+          type: string
+          example: Cardiology Ambulance
+          description: Name of ambulance
+        location:
+          type: string
+          example: A 1.34
+          description: Location of ambulance
+        contact:
+          type: string
+          example: cardiology@gmail.com
+          description: Contact for ambulance
+      example:
+        $ref: '#/components/examples/AmbulanceRequestEntryExample'
+    AmbulanceResponseEntry:
+      type: object
+      required: [id, name, location, contact, 'nurseCount', 'doctorCount']
+      properties:
+        id:
+          type: string
+          example: x321ab3
+          description: Unique id of the ambulance
+        name:
+          type: string
+          example: Cardiology Ambulance
+          description: Name of ambulance
+        location:
+          type: string
+          example: A 1.34
+          description: Location of ambulance
+        contact:
+          type: string
+          example: cardiology@gmail.com
+          description: Contact for ambulance
+        nurseCount:
+          type: string
+          example: 10
+          description: Number of nurses
+        doctorCount:
+          type: string
+          example: 5
+          description: Number of doctors
+      example:
+        $ref: '#/components/examples/AmbulanceResponseEntryExample'
+    EmployeeResponseEntry:
+      type: object
+      required: [id, name, surname, dateOfBirth, 'position', 'wage']
+      properties:
+        id:
+          type: string
+          example: x321ab3
+          description: Unique id of the employee
+        name:
+          type: string
+          example: Bill
+          description: Name of employee
+        surname:
+          type: string
+          example: Gates
+          description: Surname of employee
+        dateOfBirth:
+          type: string
+          format: date
+          example: '2000-01-01'
+          description: Date of birth of employee
+        position:
+          type: string
+          example: Doctor
+          description: Position of employee
+      example:
+        $ref: '#/components/examples/EmployeeEntryExample'
+  examples:
+    AmbulanceRequestEntryExample:
+      summary: Cardiology Ambulance
+      description: |
+        Entry represents an ambulance request entry
+      value:
+        id: x321ab3
+        name: Cardiology Ambulance
+        location: A 1.34
+        contact: cardiology@gmail.com
+    AmbulanceResponseEntryExample:
+      summary: Cardiology Ambulance
+      description: |
+        Entry represents an ambulance response entry
+      value:
+        id: x321ab3
+        name: Cardiology Ambulance
+        location: A 1.34
+        contact: cardiology@gmail.com
+        nurseCount: 10
+        doctorCount: 5
+    AmbulanceResponseEntriesExample:
+      summary: List of ambulances
+      description: Example ambulance list containing 2 ambulances
+      value:
+        - id: x321ab3
+          name: Cardiology Ambulance
+          location: A 1.34
+          contact: cardiology@gmail.com
+          nurseCount: 10
+          doctorCount: 5
+        - id: x321ab4
+          name: Chirurgical Ambulance
+          location: B 3.12
+          contact: chirurgy@gmail.com
+          nurseCount: 5
+          doctorCount: 2
+    EmployeeEntryExample:
+      summary: Bill Gates employee
+      description: Entry represents an employee entry
+      value:
+        id: x321ab3
+        name: Bill
+        surname: Gates
+        dateOfBirth: '2000-01-01'
+        position: Doctor
+        wage: 100
+    EmployeeEntriesExample:
+      summary: List of employees
+      description: Example employee list containing 2 employees
+      value:
+        - id: x321ab3
+          name: Bill
+          surname: Gates
+          dateOfBirth: '2000-01-01'
+          position: Doctor
+          wage: 100
+        - id: x321dsads
+          name: Donald
+          surname: Trump
+          dateOfBirth: '2000-01-01'
+          position: Nurse
+          wage: 1000
+
