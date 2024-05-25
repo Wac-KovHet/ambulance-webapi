@@ -36,28 +36,3 @@ type AmbulanceResponse struct {
 	// Total wage of doctors
 	DoctorTotalWage int32 `json:"doctorTotalWage"`
 }
-
-func MapAmbulanceToResponse(ambulance Ambulance) AmbulanceResponse {
-	var nurseCount, doctorCount, nurseWage, doctorWage int32
-	for _, employee := range ambulance.Employees {
-		switch employee.Position {
-		case "Nurse":
-			nurseCount++
-			nurseWage += employee.Wage
-		case "Doctor":
-			doctorCount++
-			doctorWage += employee.Wage
-		}
-	}
-
-	return AmbulanceResponse{
-		Id:          ambulance.Id,
-		Name:        ambulance.Name,
-		Location:    ambulance.Location,
-		Contact:     ambulance.Contact,
-		NurseCount:  nurseCount,
-		DoctorCount: doctorCount,
-		NurseTotalWage: nurseWage,
-		DoctorTotalWage: doctorWage,
-	}
-}

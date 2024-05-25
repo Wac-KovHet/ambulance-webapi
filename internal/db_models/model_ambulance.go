@@ -1,4 +1,4 @@
-package ambulance_wl
+package db_models
 
 type Ambulance struct {
 	// Unique id of the ambulance

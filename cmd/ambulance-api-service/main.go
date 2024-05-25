@@ -13,6 +13,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/Wac-KovHet/ambulance-webapi/internal/db_models"
 	"github.com/Wac-KovHet/ambulance-webapi/internal/db_service"
 	"github.com/gin-contrib/cors"
 )
@@ -41,7 +42,7 @@ func main() {
     engine.Use(corsMiddleware)
 
     // setup context update  middleware
-    dbService := db_service.NewMongoService[ambulance_wl.Ambulance](db_service.MongoServiceConfig{})
+    dbService := db_service.NewMongoService[db_models.Ambulance](db_service.MongoServiceConfig{})
     defer dbService.Disconnect(context.Background())
     engine.Use(func(ctx *gin.Context) {
         ctx.Set("db_service", dbService)

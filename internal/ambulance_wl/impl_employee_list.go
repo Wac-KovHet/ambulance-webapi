@@ -3,10 +3,22 @@ package ambulance_wl
 import (
 	"net/http"
 
+	"github.com/Wac-KovHet/ambulance-webapi/internal/db_models"
 	"github.com/Wac-KovHet/ambulance-webapi/internal/db_service"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
+
+func MapEmployeeToResponse(employee db_models.Employee) EmployeeResponse {
+	return EmployeeResponse{
+		Id:          employee.Id,
+		Name:        employee.Name,
+		Surname:     employee.Surname,
+		DateOfBirth: employee.DateOfBirth,
+		Position:    employee.Position,
+		Wage:        employee.Wage,
+	}
+}
 
 // CreateEmployee - Saves new employee
 func (this *implEmployeeListAPI) CreateEmployee(ctx *gin.Context) {
@@ -22,7 +34,7 @@ func (this *implEmployeeListAPI) CreateEmployee(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -85,7 +97,7 @@ func (this *implEmployeeListAPI) CreateEmployee(ctx *gin.Context) {
 		return
 	}
 
-	employee := Employee{
+	employee := db_models.Employee{
 		Id:          uuid.New().String(),
 		Name:        employeeRequest.Name,
 		Surname:     employeeRequest.Surname,
@@ -129,7 +141,7 @@ func (this *implEmployeeListAPI) DeleteEmployee(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -209,7 +221,7 @@ func (this *implEmployeeListAPI) GetEmployee(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -280,7 +292,7 @@ func (this *implEmployeeListAPI) GetEmployeeList(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -340,7 +352,7 @@ func (this *implEmployeeListAPI) UpdateEmployee(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -407,7 +419,7 @@ func (this *implEmployeeListAPI) UpdateEmployee(ctx *gin.Context) {
 
 	for i, emp := range ambulance.Employees {
 		if emp.Id == employeeId {
-			ambulance.Employees[i] = Employee{
+			ambulance.Employees[i] = db_models.Employee{
 				Id:          emp.Id,
 				Name:        employeeRequest.Name,
 				Surname:     employeeRequest.Surname,

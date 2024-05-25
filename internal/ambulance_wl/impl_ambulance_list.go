@@ -2,11 +2,54 @@ package ambulance_wl
 
 import (
 	"net/http"
+	"strings"
 
+	"github.com/Wac-KovHet/ambulance-webapi/internal/db_models"
 	"github.com/Wac-KovHet/ambulance-webapi/internal/db_service"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 )
+
+var validate *validator.Validate
+
+func init() {
+	validate = validator.New()
+}
+
+func FormatValidationError(err error) map[string]string {
+	errs := make(map[string]string)
+	for _, err := range err.(validator.ValidationErrors) {
+		field := strings.ToLower(err.Field())
+		errs[field] = err.Tag()
+	}
+	return errs
+}
+
+func MapAmbulanceToResponse(ambulance db_models.Ambulance) AmbulanceResponse {
+	var nurseCount, doctorCount, nurseWage, doctorWage int32
+	for _, employee := range ambulance.Employees {
+		switch employee.Position {
+		case "Nurse":
+			nurseCount++
+			nurseWage += employee.Wage
+		case "Doctor":
+			doctorCount++
+			doctorWage += employee.Wage
+		}
+	}
+
+	return AmbulanceResponse{
+		Id:          ambulance.Id,
+		Name:        ambulance.Name,
+		Location:    ambulance.Location,
+		Contact:     ambulance.Contact,
+		NurseCount:  nurseCount,
+		DoctorCount: doctorCount,
+		NurseTotalWage: nurseWage,
+		DoctorTotalWage: doctorWage,
+	}
+}
 
 // CreateAmbulance - Saves new ambulance
 func (this *implAmbulanceListAPI) CreateAmbulance(ctx *gin.Context) {
@@ -22,7 +65,7 @@ func (this *implAmbulanceListAPI) CreateAmbulance(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -62,7 +105,7 @@ func (this *implAmbulanceListAPI) CreateAmbulance(ctx *gin.Context) {
 		return
 	}
 
-	ambulance := Ambulance{
+	ambulance := db_models.Ambulance{
 		Id:       uuid.New().String(),
 		Name:     ambulanceRequest.Name,
 		Location: ambulanceRequest.Location,
@@ -112,7 +155,7 @@ func (this *implAmbulanceListAPI) DeleteAmbulance(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -164,7 +207,7 @@ func (this *implAmbulanceListAPI) GetAmbulance(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -219,7 +262,7 @@ func (this *implAmbulanceListAPI) GetAmbulanceList(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
@@ -267,7 +310,7 @@ func (this *implAmbulanceListAPI) UpdateAmbulance(ctx *gin.Context) {
 		return
 	}
 
-	db, ok := value.(db_service.DbService[Ambulance])
+	db, ok := value.(db_service.DbService[db_models.Ambulance])
 	if !ok {
 		ctx.JSON(
 			http.StatusInternalServerError,
