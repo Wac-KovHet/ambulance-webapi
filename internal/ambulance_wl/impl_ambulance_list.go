@@ -50,7 +50,7 @@ func (this *implAmbulanceListAPI) CreateAmbulance(ctx *gin.Context) {
 	// Validate the request
 	err = validate.Struct(ambulanceRequest)
 	if err != nil {
-		errors := formatValidationError(err)
+		errors := FormatValidationError(err)
 		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -297,7 +297,7 @@ func (this *implAmbulanceListAPI) UpdateAmbulance(ctx *gin.Context) {
 	// Validate the request
 	err = validate.Struct(ambulanceRequest)
 	if err != nil {
-		errors := formatValidationError(err)
+		errors := FormatValidationError(err)
 		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{

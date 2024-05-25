@@ -12,7 +12,7 @@ func init() {
 	validate = validator.New()
 }
 
-func formatValidationError(err error) map[string]string {
+func FormatValidationError(err error) map[string]string {
 	errs := make(map[string]string)
 	for _, err := range err.(validator.ValidationErrors) {
 		field := strings.ToLower(err.Field())

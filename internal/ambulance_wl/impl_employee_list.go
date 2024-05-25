@@ -73,7 +73,7 @@ func (this *implEmployeeListAPI) CreateEmployee(ctx *gin.Context) {
 	// Validate the request
 	err = validate.Struct(employeeRequest)
 	if err != nil {
-		errors := formatValidationError(err)
+		errors := FormatValidationError(err)
 		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -393,7 +393,7 @@ func (this *implEmployeeListAPI) UpdateEmployee(ctx *gin.Context) {
 	// Validate the request
 	err = validate.Struct(employeeRequest)
 	if err != nil {
-		errors := formatValidationError(err)
+		errors := FormatValidationError(err)
 		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
