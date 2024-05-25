@@ -333,7 +333,7 @@ components:
         $ref: '#/components/examples/AmbulanceRequestExample'
     AmbulanceResponse:
       type: object
-      required: [id, name, location, contact, nurseCount, doctorCount]
+      required: [id, name, location, contact, nurseCount, doctorCount, nurseTotalWage, doctorTotalWage]
       properties:
         id:
           type: string
@@ -361,6 +361,16 @@ components:
           format: int32
           example: 5
           description: Number of doctors
+        nurseTotalWage:
+          type: integer
+          format: int32
+          example: 10000
+          description: Total wage of nurses
+        doctorTotalWage:
+          type: integer
+          format: int32
+          example: 20000
+          description: Total wage of doctors
       example:
         $ref: '#/components/examples/AmbulanceResponseExample'
     EmployeeRequest:
@@ -441,6 +451,8 @@ components:
         contact: cardiology@gmail.com
         nurseCount: 10
         doctorCount: 5
+        nurseTotalWage: 10000
+        doctorTotalWage: 20000
     AmbulanceResponseListExample:
       summary: List of ambulances
       description: Example ambulance list containing 2 ambulances
@@ -451,12 +463,16 @@ components:
           contact: cardiology@gmail.com
           nurseCount: 10
           doctorCount: 5
+          nurseTotalWage: 10000
+          doctorTotalWage: 20000
         - id: x321ab4
           name: Chirurgical Ambulance
           location: B 3.12
           contact: chirurgy@gmail.com
           nurseCount: 5
           doctorCount: 2
+          nurseTotalWage: 5000
+          doctorTotalWage: 10000
     EmployeeRequestExample:
       summary: Bill Gates employee
       description: Employee request object

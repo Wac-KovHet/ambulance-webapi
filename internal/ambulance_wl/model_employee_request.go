@@ -11,18 +11,19 @@
 package ambulance_wl
 
 type EmployeeRequest struct {
+
 	// Name of employee
-	Name string `json:"name" validate:"required,min=2,max=100"`
+	Name string `json:"name"`
 
 	// Surname of employee
-	Surname string `json:"surname" validate:"required,min=2,max=100"`
+	Surname string `json:"surname"`
 
 	// Date of birth of employee
-	DateOfBirth string `json:"dateOfBirth" validate:"required,datetime=2006-01-02"`
+	DateOfBirth string `json:"dateOfBirth"`
 
 	// Position of employee
-	Position string `json:"position" validate:"required,oneof=Doctor Nurse"`
+	Position string `json:"position"`
 
-	// Wage of employee
-	Wage int32 `json:"wage" validate:"required,min=100,max=100000"`
+	// Wage
+	Wage int32 `json:"wage"`
 }

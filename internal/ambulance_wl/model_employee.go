@@ -20,14 +20,3 @@ type Employee struct {
 	// Wage of employee
 	Wage int32 `json:"wage"`
 }
-
-func MapEmployeeToResponse(employee Employee) EmployeeResponse {
-	return EmployeeResponse{
-		Id:          employee.Id,
-		Name:        employee.Name,
-		Surname:     employee.Surname,
-		DateOfBirth: employee.DateOfBirth,
-		Position:    employee.Position,
-		Wage:        employee.Wage,
-	}
-}
