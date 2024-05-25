@@ -38,13 +38,15 @@ type AmbulanceResponse struct {
 }
 
 func MapAmbulanceToResponse(ambulance Ambulance) AmbulanceResponse {
-	var nurseCount, doctorCount int32
+	var nurseCount, doctorCount, nurseWage, doctorWage int32
 	for _, employee := range ambulance.Employees {
 		switch employee.Position {
 		case "Nurse":
 			nurseCount++
+			nurseWage += employee.Wage
 		case "Doctor":
 			doctorCount++
+			doctorWage += employee.Wage
 		}
 	}
 
@@ -55,5 +57,7 @@ func MapAmbulanceToResponse(ambulance Ambulance) AmbulanceResponse {
 		Contact:     ambulance.Contact,
 		NurseCount:  nurseCount,
 		DoctorCount: doctorCount,
+		NurseTotalWage: nurseWage,
+		DoctorTotalWage: doctorWage,
 	}
 }

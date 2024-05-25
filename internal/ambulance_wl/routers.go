@@ -11,7 +11,7 @@
 package ambulance_wl
 
 import (
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 func AddRoutes(engine *gin.Engine) {
@@ -26,5 +26,4 @@ func AddRoutes(engine *gin.Engine) {
     api := newEmployeeListAPI()
     api.addRoutes(group)
   }
-  
 }
